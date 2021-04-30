@@ -14,12 +14,17 @@ var bolt_1, bolt_2, bolt_3, bolt_4;
 var thunderBolt;
 var rand;
 var thunderCreatedFrame = 0;
-
+var batAnimation, bat;
 function preload() {
     bolt_1 = loadImage("thunderbolt/1.png")
     bolt_2 = loadImage("thunderbolt/2.png")
     bolt_3 = loadImage("thunderbolt/3.png")
     bolt_4 = loadImage("thunderbolt/4.png")
+    batAnimation = loadAnimation("bat/bat1.png", "bat/bat2.png", "bat/bat3.png",
+        "bat/bat4.png", "bat/bat5.png", "bat/bat6.png",
+        "bat/bat7.png", "bat/bat8.png", "bat/bat9.png",
+        "bat/bat10.png", "bat/bat11.png", "bat/bat12.png");
+
 }
 
 function setup() {
@@ -81,6 +86,18 @@ function spawnBolt() {
             default: break;
         }
         thunderBolt.scale = random(0.3, 0.6);
+
+        bat = createSprite(Math.round(random(0, 400)), Math.round(random(0, 400)));
+        bat.addAnimation("moving_bat", batAnimation);
+        bat.visible = false;
+        if (frameCount % 100 === 0) {
+            bat.visible = true;
+            bat.velocityX = Math.round(random(-4, 4));
+            bat.velocityY = Math.round(random(-4, 4));
+            bat.scale = 0.4;
+
+
+        }
     }
     if (thunderCreatedFrame + 10 === frameCount && thunderBolt) {
         thunderBolt.destroy();
